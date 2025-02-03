@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Any;
 
 namespace Hng12Stage1.Controllers
 {
@@ -90,9 +91,19 @@ namespace Hng12Stage1.Controllers
 
         private static async Task<string> GetFunFactAsync(string num)
         {
+            try 
+            {
             HttpClient client = new();
             HttpResponseMessage response = await client.GetAsync($"http://numbersapi.com/{num}/math");
-            return $"{await response.Content.ReadAsStringAsync()}";
+
+                return $"{await response.Content.ReadAsStringAsync()}";
+            }
+            catch(HttpRequestException)
+            {
+            return $"No fun fact returned from the numbers api for the number: {num}";
+            }
+
         }
+
     }
 }
