@@ -44,13 +44,15 @@ namespace Hng12Stage1.Controllers
 
         private static bool IsPerfect(int num)
         {
-            int sum = 0;
-            for (int i = 1; i < num; i++)
+            if (num < 6) return false;
+            int sumOfDivisors = 1;
+
+            for (int i = 1; i <= Math.Sqrt(num); i++)
             {
                 if (num % i == 0)
-                    sum += i;
+                    sumOfDivisors += i;
             }
-            return sum == num;
+            return sumOfDivisors == num;
         }
 
         private static string[] GetProperties(int num)
